@@ -84,11 +84,13 @@ class Weight {
 }
 
 class TrackingData {
+  final DateTime date;
   final WorkOut workout;
   final Weight weight;
   final num reps;
   final num sets;
   TrackingData({
+    required this.date,
     required this.workout,
     required this.weight,
     required this.reps,
@@ -96,12 +98,14 @@ class TrackingData {
   });
 
   TrackingData copyWith({
+    DateTime? date,
     WorkOut? workout,
     Weight? weight,
     num? reps,
     num? sets,
   }) {
     return TrackingData(
+      date: date ?? this.date,
       workout: workout ?? this.workout,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
@@ -111,6 +115,7 @@ class TrackingData {
 
   Map<String, dynamic> toMap() {
     return {
+      'date': date.millisecondsSinceEpoch,
       'workout': workout.toMap(),
       'weight': weight.toMap(),
       'reps': reps,
@@ -120,6 +125,7 @@ class TrackingData {
 
   factory TrackingData.fromMap(Map<String, dynamic> map) {
     return TrackingData(
+      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       workout: WorkOut.fromMap(map['workout']),
       weight: Weight.fromMap(map['weight']),
       reps: map['reps'] ?? 0,
@@ -134,6 +140,6 @@ class TrackingData {
 
   @override
   String toString() {
-    return 'TrackingData(workout: $workout, weight: $weight, reps: $reps, sets: $sets)';
+    return 'TrackingData(date: $date, workout: $workout, weight: $weight, reps: $reps, sets: $sets)';
   }
 }
