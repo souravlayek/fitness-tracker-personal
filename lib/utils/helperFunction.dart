@@ -13,6 +13,31 @@ WorkOut getIndevidualWorkout(String id) {
   return workouts.firstWhere((element) => element.id == id);
 }
 
-List<TrackingData> getTrackingDataBasedOnWorkout(String id) {
-  return trackingData.where((e) => e.workout.id == id).toList();
+List<WorkoutDone> getTrackingDataBasedOnWorkout(String id) {
+  return workedOutData.where((e) => e.workout.id == id).toList();
 }
+
+String getWeightTakenWithUnit(TrackingData trackingData) {
+  switch (trackingData.weight.type) {
+    case WeightType.kg:
+      return "${trackingData.weight.weight.toString()} kg";
+    case WeightType.number:
+      return "${trackingData.weight.weight.toString()} nos";
+    case WeightType.pound:
+      return "${trackingData.weight.weight.toString()} lb";
+    default:
+      return "";
+  }
+}
+
+// ============================= [[FIREBASE]] ===================================
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+    // Future<void> getData() async {
+    //   CollectionReference data =
+    //       FirebaseFirestore.instance.collection('dummycollection');
+    //   return await data.get().then((value) {
+    //     value.docs.forEach((e) => print(e.data()));
+    //   }).catchError((error) => print("Failed to add user: $error"));
+    // }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 enum WeightType { number, kg, pound }
 
 class WorkOut {
@@ -84,29 +86,21 @@ class Weight {
 }
 
 class TrackingData {
-  final DateTime date;
-  final WorkOut workout;
   final Weight weight;
   final num reps;
   final num sets;
   TrackingData({
-    required this.date,
-    required this.workout,
     required this.weight,
     required this.reps,
     required this.sets,
   });
 
   TrackingData copyWith({
-    DateTime? date,
-    WorkOut? workout,
     Weight? weight,
     num? reps,
     num? sets,
   }) {
     return TrackingData(
-      date: date ?? this.date,
-      workout: workout ?? this.workout,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       sets: sets ?? this.sets,
@@ -115,8 +109,6 @@ class TrackingData {
 
   Map<String, dynamic> toMap() {
     return {
-      'date': date.millisecondsSinceEpoch,
-      'workout': workout.toMap(),
       'weight': weight.toMap(),
       'reps': reps,
       'sets': sets,
@@ -125,8 +117,6 @@ class TrackingData {
 
   factory TrackingData.fromMap(Map<String, dynamic> map) {
     return TrackingData(
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
-      workout: WorkOut.fromMap(map['workout']),
       weight: Weight.fromMap(map['weight']),
       reps: map['reps'] ?? 0,
       sets: map['sets'] ?? 0,
@@ -139,7 +129,55 @@ class TrackingData {
       TrackingData.fromMap(json.decode(source));
 
   @override
-  String toString() {
-    return 'TrackingData(date: $date, workout: $workout, weight: $weight, reps: $reps, sets: $sets)';
+  String toString() =>
+      'TrackingData(weight: $weight, reps: $reps, sets: $sets)';
+}
+
+class WorkoutDone {
+  final WorkOut workout;
+  final DateTime workedOutAt;
+  final List<TrackingData> workoutSets;
+  WorkoutDone({
+    required this.workout,
+    required this.workedOutAt,
+    required this.workoutSets,
+  });
+
+  WorkoutDone copyWith({
+    WorkOut? workout,
+    DateTime? workedOutAt,
+    List<TrackingData>? workoutSets,
+  }) {
+    return WorkoutDone(
+      workout: workout ?? this.workout,
+      workedOutAt: workedOutAt ?? this.workedOutAt,
+      workoutSets: workoutSets ?? this.workoutSets,
+    );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'workout': workout.toMap(),
+      'workedOutAt': workedOutAt.millisecondsSinceEpoch,
+      'workoutSets': workoutSets.map((x) => x.toMap()).toList(),
+    };
+  }
+
+  factory WorkoutDone.fromMap(Map<String, dynamic> map) {
+    return WorkoutDone(
+      workout: WorkOut.fromMap(map['workout']),
+      workedOutAt: DateTime.fromMillisecondsSinceEpoch(map['workedOutAt']),
+      workoutSets: List<TrackingData>.from(
+          map['workoutSets']?.map((x) => TrackingData.fromMap(x))),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory WorkoutDone.fromJson(String source) =>
+      WorkoutDone.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'WorkoutDone(workout: $workout, workedOutAt: $workedOutAt, workoutSets: $workoutSets)';
 }
