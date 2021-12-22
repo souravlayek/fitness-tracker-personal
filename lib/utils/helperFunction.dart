@@ -25,6 +25,8 @@ String getWeightTakenWithUnit(TrackingData trackingData) {
       return "${trackingData.weight.weight.toString()} nos";
     case WeightType.pound:
       return "${trackingData.weight.weight.toString()} lb";
+    case WeightType.bodyWeight:
+      return "No weight";
     default:
       return "";
   }

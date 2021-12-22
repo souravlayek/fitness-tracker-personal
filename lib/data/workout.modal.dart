@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-enum WeightType { number, kg, pound }
+enum WeightType { number, kg, pound, bodyWeight }
 
 class WorkOut {
   final String id;

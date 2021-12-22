@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/screens/addSession.dart';
 import 'package:workout_tracker/screens/details.dart';
 import 'package:workout_tracker/screens/homepage.dart';
 import 'package:workout_tracker/utils/routes.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => MyHomePage(),
         MyRoute.homeRoute: (context) => MyHomePage(),
         MyRoute.detailsRoute: (context) => DetailsPage(),
+        MyRoute.addSessionRoute: (context) => AddSession(),
       },
     );
   }
