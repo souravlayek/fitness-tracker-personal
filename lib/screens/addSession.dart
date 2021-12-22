@@ -31,7 +31,7 @@ class _AddSessionState extends State<AddSession> {
       body: Column(
         children: [
           [
-            "Here your last added data".text.bold.size(22).makeCentered(),
+            "Here are your last added data".text.bold.size(22).makeCentered(),
             [
               ...trackingDatas
                   .mapIndexed((e, index) => EachSetRow(
@@ -58,7 +58,7 @@ class _AddSessionState extends State<AddSession> {
             },
           )
         ],
-      ),
+      ).pSymmetric(v: 20, h: 10),
     );
   }
 }
