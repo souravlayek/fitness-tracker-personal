@@ -7,11 +7,13 @@ class EachSetRow extends StatelessWidget {
   final String weightTaken;
   final String reps;
   final String sets;
+  final int index;
   const EachSetRow(
       {Key? key,
       required this.weightTaken,
       required this.reps,
-      required this.sets})
+      required this.sets,
+      required this.index})
       : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class EachSetRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       width: double.infinity,
       child: [
+        "#${index + 1}".text.bold.make(),
         TextWithIcon(
           icon: Icons.fitness_center,
           value: weightTaken,

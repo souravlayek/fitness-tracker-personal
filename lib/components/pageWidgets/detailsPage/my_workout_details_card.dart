@@ -21,7 +21,8 @@ class MyWorkoutDetailsCard extends StatelessWidget {
           ).w(double.infinity).box.p12.blue100.make(),
           Column(
             children: workedOutData.workoutSets
-                .map((e) => EachSetRow(
+                .mapIndexed((e, index) => EachSetRow(
+                    index: index,
                     weightTaken: getWeightTakenWithUnit(e),
                     reps: e.reps.toString(),
                     sets: e.sets.toString()))

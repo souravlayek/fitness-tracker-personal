@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/components/pageWidgets/detailsPage/each_set_row.dart';
@@ -19,21 +20,41 @@ class _AddSessionState extends State<AddSession> {
     return Scaffold(
       appBar: AppBar(
         title: "Add your session".text.make(),
+        actions: [
+          IconButton(
+              onPressed: () {
+                print("saveAllData");
+              },
+              icon: const Icon(Icons.save_alt_outlined))
+        ],
       ),
       body: Column(
         children: [
           [
             "Here your last added data".text.bold.size(22).makeCentered(),
-            ...trackingDatas
-                .map((e) => EachSetRow(
-                    weightTaken: getWeightTakenWithUnit(e),
-                    reps: e.reps.toString(),
-                    sets: e.sets.toString()))
-                .toList(),
+            [
+              ...trackingDatas
+                  .mapIndexed((e, index) => EachSetRow(
+                      index: index,
+                      weightTaken: getWeightTakenWithUnit(e),
+                      reps: e.reps.toString(),
+                      sets: e.sets.toString()))
+                  .toList()
+            ]
+                .column()
+                .box
+                .blueGray300
+                .margin(const EdgeInsets.symmetric(vertical: 20))
+                .withConstraints(const BoxConstraints(
+                    minHeight: 100, minWidth: double.infinity))
+                .make(),
           ].column(),
           WorkoutInputForm(
             handleSubmit: (TrackingData data) {
               print(data.toString());
+              setState(() {
+                trackingDatas.add(data);
+              });
             },
           )
         ],

@@ -20,10 +20,20 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
 
   void sendData() {
     TrackingData trackingData = TrackingData(
-        weight: Weight(weight: int.parse(weight.text), type: selectedWeight),
-        reps: int.parse(reps.text),
-        sets: int.parse(sets.text));
+        weight: Weight(
+            weight: double.parse(weight.text).toInt(), type: selectedWeight),
+        reps: double.parse(reps.text).toInt(),
+        sets: double.parse(sets.text).toInt());
+    weight.text = "";
+    sets.text = "";
+    reps.text = "";
     widget.handleSubmit(trackingData);
+  }
+
+  void clearForm() {
+    weight.text = "";
+    sets.text = "";
+    reps.text = "";
   }
 
   @override
@@ -86,9 +96,7 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.redAccent)),
-                  onPressed: () {
-                    print("Cleared");
-                  },
+                  onPressed: clearForm,
                   child: "Clear".text.make())
             ],
           )
