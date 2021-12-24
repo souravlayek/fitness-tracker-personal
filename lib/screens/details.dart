@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/components/pageWidgets/detailsPage/my_workout_details_card.dart';
-import 'package:workout_tracker/data/workout.modal.dart';
+import 'package:workout_tracker/data/models.dart';
 import 'package:workout_tracker/utils/helperFunction.dart';
 import 'package:workout_tracker/utils/routes.dart';
 
@@ -58,8 +58,3 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 }
-
-
-// "blog".text.makeCentered().onInkTap(() {
-//                 Navigator.pop(context);
-//               }),

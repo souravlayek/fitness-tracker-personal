@@ -1,15 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/data/data.dart';
 import 'package:workout_tracker/data/store.dart';
 
 import 'dart:math' as math;
 
-import 'package:workout_tracker/data/workout.modal.dart';
+import 'package:workout_tracker/data/models.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = const Uuid();
 
 Color getRandomColor() {
   return colors[math.Random().nextInt(colors.length)];
+}
+
+String getRandomId() {
+  return uuid.v4();
+}
+
+Future<void> setDataToLocalStorage(String key, dynamic value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString(key, value);
+}
+
+Future<dynamic> getDataFromLocalStorage(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  dynamic data = (prefs.getString(key));
+  return data;
 }
 
 WorkOut getIndevidualWorkout(String id) {
@@ -46,15 +65,3 @@ String getWeightTakenWithUnit(TrackingData trackingData) {
       return "";
   }
 }
-
-// ============================= [[FIREBASE]] ===================================
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
-    // Future<void> getData() async {
-    //   CollectionReference data =
-    //       FirebaseFirestore.instance.collection('dummycollection');
-    //   return await data.get().then((value) {
-    //     value.docs.forEach((e) => print(e.data()));
-    //   }).catchError((error) => print("Failed to add user: $error"));
-    // }

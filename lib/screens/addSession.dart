@@ -4,7 +4,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/components/pageWidgets/detailsPage/each_set_row.dart';
 import 'package:workout_tracker/components/smallWidgets/workout_input_form.dart';
 import 'package:workout_tracker/data/store.dart';
-import 'package:workout_tracker/data/workout.modal.dart';
+import 'package:workout_tracker/data/models.dart';
 import 'package:workout_tracker/utils/helperFunction.dart';
 
 class AddSession extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/components/smallWidgets/workout_card.dart';
 import 'package:workout_tracker/data/store.dart';
-import 'package:workout_tracker/data/workout.modal.dart';
+import 'package:workout_tracker/data/models.dart';
 
 class HomepageList extends StatefulWidget {
   const HomepageList({

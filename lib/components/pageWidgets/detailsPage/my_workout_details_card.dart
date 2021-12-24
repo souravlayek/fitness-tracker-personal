@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_tracker/components/pageWidgets/detailsPage/each_set_row.dart';
-import 'package:workout_tracker/data/workout.modal.dart';
+import 'package:workout_tracker/data/models.dart';
 import 'package:workout_tracker/utils/helperFunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 
