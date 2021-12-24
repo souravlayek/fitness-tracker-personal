@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:808818609096:android:2e9743257c53ad15098efd",
+        "mobilesdk_app_id": "1:808818609096:android:8bc3551d765aca3e098efd",
         "android_client_info": {
-          "package_name": "com.example.workout_tracker"
+          "package_name": "com.souravlayek.workout_tracker"
         }
       },
       "oauth_client": [

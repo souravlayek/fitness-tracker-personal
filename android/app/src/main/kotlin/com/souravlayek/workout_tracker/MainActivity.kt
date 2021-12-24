@@ -1,4 +1,4 @@
-package com.example.workout_tracker
+package com.souravlayek.workout_tracker
 
 import io.flutter.embedding.android.FlutterActivity
 
