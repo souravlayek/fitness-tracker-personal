@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/data/data.dart';
@@ -20,7 +21,14 @@ WorkOut getIndevidualWorkout(String id) {
   throw Exception("Something went wrong");
 }
 
-List<WorkoutDone> getTrackingDataBasedOnWorkout(String id) {
+Future<List<WorkoutDone>> getTrackingDataBasedOnWorkout(String id) async {
+  MyStore store = VxState.store;
+  DocumentReference workoutDocument =
+      (store.data['myCollection'] as CollectionReference).doc("mySession");
+  List<WorkoutDone> workedOutData = [];
+  await workoutDocument.get().then((value) {
+    value.get("data").forEach((e) => workedOutData.add(WorkoutDone.fromMap(e)));
+  });
   return workedOutData.where((e) => e.workout.id == id).toList();
 }
 

@@ -64,14 +64,29 @@ class Weight {
   Map<String, dynamic> toMap() {
     return {
       'weight': weight,
-      'type': type,
+      'type': type.toString(),
     };
   }
 
   factory Weight.fromMap(Map<String, dynamic> map) {
+    WeightType getWeightType(String weightType) {
+      switch (weightType) {
+        case "WeightType.bodyWeight":
+          return WeightType.bodyWeight;
+        case "WeightType.kg":
+          return WeightType.kg;
+        case "WeightType.number":
+          return WeightType.number;
+        case "WeightType.pound":
+          return WeightType.pound;
+        default:
+          return WeightType.kg;
+      }
+    }
+
     return Weight(
       weight: map['weight'] ?? 0,
-      type: map['type'],
+      type: getWeightType(map['type']),
     );
   }
 

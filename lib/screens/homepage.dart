@@ -90,7 +90,7 @@ class _AddWorkoutFormState extends State<AddWorkoutForm> {
       });
 
       workoutDocument
-          .update({
+          .set({
             "data": [...myWorkoutList, myWorkout.toMap()]
           })
           .then((value) => context.showToast(msg: "Workout added"))

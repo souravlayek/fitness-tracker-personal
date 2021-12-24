@@ -13,28 +13,39 @@ class DetailsPage extends StatelessWidget {
     final myObj =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final WorkOut myWorkout = getIndevidualWorkout(myObj["id"] as String);
-    final List<WorkoutDone> myWorkoutData =
-        getTrackingDataBasedOnWorkout(myWorkout.id);
 
     return Scaffold(
-      appBar: AppBar(
-        title: (myWorkout.workoutName).text.bold.make(),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, MyRoute.addSessionRoute,
-                    arguments: <String, String>{"id": myWorkout.id});
-              },
-              icon: const Icon(Icons.add))
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: myWorkoutData.length,
-        itemBuilder: (context, index) => MyWorkoutDetailsCard(
-          workedOutData: myWorkoutData[index],
+        appBar: AppBar(
+          title: (myWorkout.workoutName).text.bold.make(),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoute.addSessionRoute,
+                      arguments: <String, String>{"id": myWorkout.id});
+                },
+                icon: const Icon(Icons.add))
+          ],
         ),
-      ),
-    );
+        body: FutureBuilder(
+          future: getTrackingDataBasedOnWorkout(myWorkout.id),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<WorkoutDone>> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              final List<WorkoutDone> myWorkoutData =
+                  snapshot.data as List<WorkoutDone>;
+              return ListView.builder(
+                itemCount: myWorkoutData.length,
+                itemBuilder: (context, index) => MyWorkoutDetailsCard(
+                  workedOutData: myWorkoutData[index],
+                ),
+              );
+            }
+          },
+        ));
   }
 }
 
