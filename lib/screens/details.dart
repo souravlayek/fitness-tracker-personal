@@ -16,6 +16,7 @@ class _DetailsPageState extends State<DetailsPage> {
   List<WorkoutDone> myWorkoutData = [];
 
   bool isFirstRender = true;
+
   void updateData(String id) async {
     List<WorkoutDone> myWorkouts = await getTrackingDataBasedOnWorkout(id);
     setState(() {
@@ -30,6 +31,9 @@ class _DetailsPageState extends State<DetailsPage> {
     final WorkOut myWorkout = getIndevidualWorkout(myObj["id"] as String);
     if (isFirstRender) {
       updateData(myWorkout.id);
+      setState(() {
+        isFirstRender = false;
+      });
     }
 
     return Scaffold(
