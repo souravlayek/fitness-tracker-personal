@@ -82,9 +82,13 @@ class _AddWorkoutFormState extends State<AddWorkoutForm> {
       WorkOut myWorkout = WorkOut(id: uuid.v4(), workoutName: workoutName);
       DocumentReference workoutDocument =
           (store.data['myCollection'] as CollectionReference).doc("workout");
-      await workoutDocument
-          .get()
-          .then((value) => {myWorkoutList = value.get("data")});
+      await workoutDocument.get().then((value) {
+        myWorkoutList = value.get("data");
+        List<WorkOut> workoutToStore =
+            myWorkoutList.map((e) => WorkOut.fromMap(e)).toList();
+        UpdateMyStore({"workouts": workoutToStore});
+      });
+
       workoutDocument
           .update({
             "data": [...myWorkoutList, myWorkout.toMap()]

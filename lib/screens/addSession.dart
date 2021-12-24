@@ -22,6 +22,14 @@ class _AddSessionState extends State<AddSession> {
         actions: [
           IconButton(
               onPressed: () {
+                final myObj = ModalRoute.of(context)!.settings.arguments
+                    as Map<String, String>;
+                final WorkOut myWorkout =
+                    getIndevidualWorkout(myObj["id"] as String);
+                WorkoutDone workoutDone = WorkoutDone(
+                    workout: myWorkout,
+                    workedOutAt: DateTime.now(),
+                    workoutSets: trackingDatas);
                 // ! handle save to firebase
               },
               icon: const Icon(Icons.save_alt_outlined))

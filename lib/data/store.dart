@@ -13,5 +13,5 @@ class UpdateMyStore extends VxMutation<MyStore> {
   late Map<String, dynamic> myData;
   UpdateMyStore(this.myData);
   @override
-  perform() => store?.data = myData;
+  perform() => store?.data[myData.keys.first] = myData[myData.keys.first];
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/data/data.dart';
+import 'package:workout_tracker/data/store.dart';
 
 import 'dart:math' as math;
 
@@ -10,7 +12,12 @@ Color getRandomColor() {
 }
 
 WorkOut getIndevidualWorkout(String id) {
-  return workouts.firstWhere((element) => element.id == id);
+  MyStore store = VxState.store;
+  List<WorkOut> workouts = store.data['workouts'];
+  if (workouts.isNotEmpty) {
+    return workouts.firstWhere((element) => element.id == id);
+  }
+  throw Exception("Something went wrong");
 }
 
 List<WorkoutDone> getTrackingDataBasedOnWorkout(String id) {
