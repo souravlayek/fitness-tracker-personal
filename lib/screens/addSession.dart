@@ -25,7 +25,7 @@ class _AddSessionState extends State<AddSession> {
       dynamic myValue = value.get("data");
       myValue.forEach((e) => workoutToStore.add(e));
     });
-    workoutDocument
+    await workoutDocument
         .set({
           "data": [...workoutToStore, myWorkout.toMap()]
         })
@@ -33,6 +33,11 @@ class _AddSessionState extends State<AddSession> {
         .catchError((error) {
           context.showToast(msg: "Failed to add workout");
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

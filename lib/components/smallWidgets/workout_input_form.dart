@@ -17,6 +17,13 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
   TextEditingController weight = TextEditingController();
   TextEditingController reps = TextEditingController();
   TextEditingController sets = TextEditingController();
+  @override
+  void dispose() {
+    weight.dispose();
+    reps.dispose();
+    sets.dispose();
+    super.dispose();
+  }
 
   void sendData() {
     if (_formKey.currentState!.validate()) {

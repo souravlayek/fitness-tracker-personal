@@ -4,14 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/data/store.dart';
-import 'package:workout_tracker/data/workout.modal.dart';
 import 'package:workout_tracker/screens/addSession.dart';
 import 'package:workout_tracker/screens/details.dart';
 import 'package:workout_tracker/screens/homepage.dart';
 import 'package:workout_tracker/utils/routes.dart';
 import 'package:uuid/uuid.dart';
 
-var uuid = Uuid();
+var uuid = const Uuid();
 
 Future<String> _getMyAccountAddress() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: MyRoute.homeRoute,
       routes: {
-        MyRoute.homeRoute: (context) => MyHomePage(),
+        MyRoute.homeRoute: (context) => const MyHomePage(),
         MyRoute.detailsRoute: (context) => const DetailsPage(),
         MyRoute.addSessionRoute: (context) => const AddSession(),
       },
