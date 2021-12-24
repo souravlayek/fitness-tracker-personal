@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/components/pageWidgets/detailsPage/each_set_row.dart';
@@ -19,11 +18,11 @@ class _AddSessionState extends State<AddSession> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: "Add your session".text.make(),
+        title: "Add your session".text.bold.make(),
         actions: [
           IconButton(
               onPressed: () {
-                print("saveAllData");
+                // ! handle save to firebase
               },
               icon: const Icon(Icons.save_alt_outlined))
         ],
@@ -51,7 +50,6 @@ class _AddSessionState extends State<AddSession> {
           ].column(),
           WorkoutInputForm(
             handleSubmit: (TrackingData data) {
-              print(data.toString());
               setState(() {
                 trackingDatas.add(data);
               });

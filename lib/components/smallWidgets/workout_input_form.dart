@@ -19,15 +19,17 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
   TextEditingController sets = TextEditingController();
 
   void sendData() {
-    TrackingData trackingData = TrackingData(
-        weight: Weight(
-            weight: double.parse(weight.text).toInt(), type: selectedWeight),
-        reps: double.parse(reps.text).toInt(),
-        sets: double.parse(sets.text).toInt());
-    weight.text = "";
-    sets.text = "";
-    reps.text = "";
-    widget.handleSubmit(trackingData);
+    if (_formKey.currentState!.validate()) {
+      TrackingData trackingData = TrackingData(
+          weight: Weight(
+              weight: double.parse(weight.text).toInt(), type: selectedWeight),
+          reps: double.parse(reps.text).toInt(),
+          sets: double.parse(sets.text).toInt());
+      weight.text = "";
+      sets.text = "";
+      reps.text = "";
+      widget.handleSubmit(trackingData);
+    }
   }
 
   void clearForm() {
@@ -68,6 +70,12 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
               controller: weight,
               decoration: InputDecoration(label: "Weight".text.size(8).make()),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Required";
+                }
+                return null;
+              },
             )),
             const SizedBox(
               width: 20,
@@ -77,6 +85,12 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
               controller: reps,
               decoration: InputDecoration(label: "Reps".text.size(8).make()),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Required";
+                }
+                return null;
+              },
             )),
             const SizedBox(
               width: 20,
@@ -86,6 +100,12 @@ class _WorkoutInputFormState extends State<WorkoutInputForm> {
               controller: sets,
               decoration: InputDecoration(label: "Sets".text.size(8).make()),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Required";
+                }
+                return null;
+              },
             )),
           ].row().pSymmetric(h: 10, v: 15),
           ButtonBar(

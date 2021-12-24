@@ -18,7 +18,7 @@ class DetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: (myWorkout.workoutName).text.make(),
+        title: (myWorkout.workoutName).text.bold.make(),
         actions: [
           IconButton(
               onPressed: () {
@@ -42,33 +42,3 @@ class DetailsPage extends StatelessWidget {
 // "blog".text.makeCentered().onInkTap(() {
 //                 Navigator.pop(context);
 //               }),
-  // void _showModalBottomSheet(BuildContext context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return Wrap(children: [
-  //           Container(
-  //             padding: EdgeInsets.zero,
-  //             height: context.screenHeight * 0.9,
-  //             child: [
-  //               [
-  //                 IconButton(
-  //                     onPressed: () {
-  //                       Navigator.pop(context);
-  //                     },
-  //                     icon: Icon(Icons.close))
-  //               ]
-  //                   .row(alignment: MainAxisAlignment.end)
-  //                   .box
-  //                   .make()
-  //                   .w(double.infinity),
-  //               WorkoutInputForm(
-  //                 count: 1,
-  //               ),
-  //             ].column(),
-  //           )
-  //         ]);
-  //       },
-  //       isDismissible: false,
-  //       isScrollControlled: true);
-  // }

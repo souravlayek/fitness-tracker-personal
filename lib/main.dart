@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:workout_tracker/screens/addSession.dart';
@@ -19,13 +21,20 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+            actionsIconTheme: IconThemeData(color: Colors.black),
+            backgroundColor: Colors.white,
+            elevation: 5,
+            centerTitle: true,
+            titleTextStyle: TextStyle(color: Colors.black),
+            iconTheme: IconThemeData(color: Colors.black)),
       ),
       initialRoute: MyRoute.homeRoute,
       routes: {
-        "/": (context) => MyHomePage(),
-        MyRoute.homeRoute: (context) => MyHomePage(),
-        MyRoute.detailsRoute: (context) => DetailsPage(),
-        MyRoute.addSessionRoute: (context) => AddSession(),
+        "/": (context) => const MyHomePage(),
+        MyRoute.homeRoute: (context) => const MyHomePage(),
+        MyRoute.detailsRoute: (context) => const DetailsPage(),
+        MyRoute.addSessionRoute: (context) => const AddSession(),
       },
     );
   }
