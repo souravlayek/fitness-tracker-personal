@@ -11,7 +11,8 @@ import 'package:workout_tracker/utils/routes.dart';
 import 'package:workout_tracker/utils/theme.dart';
 
 Future<String> _getMyAccountAddress() async {
-  String myAccountAddress = await getDataFromLocalStorage("myAccountAddress");
+  String myAccountAddress =
+      await getDataFromLocalStorage("myAccountAddress") ?? "";
   return myAccountAddress;
 }
 

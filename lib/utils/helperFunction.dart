@@ -46,7 +46,13 @@ Future<List<WorkoutDone>> getTrackingDataBasedOnWorkout(String id) async {
       (store.data['myCollection'] as CollectionReference).doc("mySession");
   List<WorkoutDone> workedOutData = [];
   await workoutDocument.get().then((value) {
-    value.get("data").forEach((e) => workedOutData.add(WorkoutDone.fromMap(e)));
+    if (value.data() != null) {
+      Map<String, dynamic> myValue = value.data() as Map<String, dynamic>;
+      if (myValue.containsKey('data')) {
+        myValue['data']
+            .forEach((e) => workedOutData.add(WorkoutDone.fromMap(e)));
+      }
+    }
   });
   return workedOutData.where((e) => e.workout.id == id).toList();
 }

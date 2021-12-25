@@ -22,16 +22,21 @@ class _AddSessionState extends State<AddSession> {
         (store.data['myCollection'] as CollectionReference).doc("mySession");
     List<dynamic> workoutToStore = [];
     await workoutDocument.get().then((value) {
-      dynamic myValue = value.get("data");
-      myValue.forEach((e) => workoutToStore.add(e));
+      if (value.data() != null) {
+        Map<String, dynamic> myValue = value.data() as Map<String, dynamic>;
+
+        if (myValue.containsKey('data')) {
+          myValue['data'].forEach((e) => workoutToStore.add(e));
+        }
+      }
     });
     await workoutDocument
         .set({
           "data": [...workoutToStore, myWorkout.toMap()]
         })
-        .then((value) => context.showToast(msg: "Workout added"))
+        .then((value) => context.showToast(msg: "Session added"))
         .catchError((error) {
-          context.showToast(msg: "Failed to add workout");
+          context.showToast(msg: "Failed to add session");
         });
   }
 

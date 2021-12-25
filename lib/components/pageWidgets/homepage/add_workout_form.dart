@@ -6,8 +6,10 @@ import 'package:workout_tracker/data/models.dart';
 import 'package:workout_tracker/utils/helperFunction.dart';
 
 class AddWorkoutForm extends StatefulWidget {
+  final Function onUpdate;
   const AddWorkoutForm({
     Key? key,
+    required this.onUpdate,
   }) : super(key: key);
 
   @override
@@ -26,28 +28,28 @@ class _AddWorkoutFormState extends State<AddWorkoutForm> {
 
   @override
   Widget build(BuildContext context) {
-    // Get access to the store
     MyStore store = VxState.store;
-    List myWorkoutList = [];
 
     Future<void> addData(String workoutName) async {
       WorkOut myWorkout = WorkOut(id: getRandomId(), workoutName: workoutName);
       DocumentReference workoutDocument =
           (store.data['myCollection'] as CollectionReference).doc("workout");
-      await workoutDocument.get().then((value) {
-        myWorkoutList = value.get("data");
-        List<WorkOut> workoutToStore =
-            myWorkoutList.map((e) => WorkOut.fromMap(e)).toList();
-        UpdateMyStore({"workouts": workoutToStore});
-      });
 
-      workoutDocument
-          .set({
-            "data": [...myWorkoutList, myWorkout.toMap()]
-          })
-          .then((value) => context.showToast(msg: "Workout added"))
-          .catchError(
-              (error) => context.showToast(msg: "Failed to add workout"));
+      List<WorkOut> myWorkoutList = [];
+      if (store.data['workouts'] != null) {
+        myWorkoutList = store.data['workouts'];
+      }
+      workoutDocument.set({
+        "data": [
+          ...myWorkoutList.map((e) => e.toMap()).toList(),
+          myWorkout.toMap()
+        ]
+      }).then((value) {
+        context.showToast(msg: "Workout added");
+        widget.onUpdate();
+      }).catchError((error) {
+        context.showToast(msg: "Failed to add workout");
+      });
     }
 
     return Form(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:workout_tracker/components/pageWidgets/detailsPage/my_workout_details_card.dart';
+import 'package:workout_tracker/components/pageWidgets/emtypage/empty_page.dart';
 import 'package:workout_tracker/data/models.dart';
 import 'package:workout_tracker/utils/helperFunction.dart';
 import 'package:workout_tracker/utils/routes.dart';
@@ -49,12 +50,14 @@ class _DetailsPageState extends State<DetailsPage> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: ListView.builder(
-        itemCount: myWorkoutData.length,
-        itemBuilder: (context, index) => MyWorkoutDetailsCard(
-          workedOutData: myWorkoutData[index],
-        ),
-      ),
+      body: myWorkoutData.isNotEmpty
+          ? ListView.builder(
+              itemCount: myWorkoutData.length,
+              itemBuilder: (context, index) => MyWorkoutDetailsCard(
+                workedOutData: myWorkoutData[index],
+              ),
+            )
+          : const EmptyPage(),
     );
   }
 }
